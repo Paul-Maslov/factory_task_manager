@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 
-from task_manager.models import Post, Commentary, Employee, Position
+from task_manager.models import Post, Commentary, Employee, Position, Team, ProjectType, Project, Task
 
 admin.site.unregister(Group)
 
@@ -33,3 +33,56 @@ class EmployeeAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("Additional info", {"fields": ("first_name", "last_name", "position",)}),
     )
+
+
+@admin.register(Team)
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ["name"]
+    search_fields = ["name"]
+
+
+@admin.register(ProjectType)
+class ProjectTypeAdmin(admin.ModelAdmin):
+    list_display = ["name"]
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = [
+        "owner",
+        "name",
+        "description",
+        "deadline",
+        "team",
+        "is_completed",
+    ]
+    list_filter = [
+        "deadline",
+        "team",
+        "is_completed",
+    ]
+    search_fields = [
+        "owner",
+        "name",
+    ]
+
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = [
+        "project",
+        "name",
+        "description",
+        "deadline",
+        "priority",
+        "is_completed",
+    ]
+    list_filter = [
+        "deadline",
+        "project",
+        "priority",
+        "is_completed",
+    ]
+    search_fields = [
+        "name",
+    ]
