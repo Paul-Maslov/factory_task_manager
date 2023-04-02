@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container-slide">
+    <div class="swiper">
+    <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide"><img src="{% static 'slider/images/Atlant-homepage-rus-1920x800.jpg' %}"></div>
+        <div class="swiper-slide"><img src="{% static 'slider/images/floid-ua-1920x800.jpg' %}"></div>
+        <div class="swiper-slide"><img src="{% static 'slider/images/Horeca_rus-1920x800.jpg' %}"></div>
+        <div class="swiper-slide"><img src="{% static 'slider/images/Main-banner-aero-rus-1920x800.jpg' %}"></div>
+        <div class="swiper-slide"><img src="{% static 'slider/images/Main-banner-dale-rus-1920x800.jpg' %}"></div>
+        <div class="swiper-slide"><img src="{% static 'slider/images/Main-banner-ferum-rus-1920x800.jpg' %}"></div>
+        <div class="swiper-slide"><img src="{% static 'slider/images/Main-banner-greys-ukr-1920x800.jpg' %}"></div>
+        <div class="swiper-slide"><img src="{% static 'slider/images/Main-banner-montesano-rus-1920x800.jpg' %}"></div>
+        <div class="swiper-slide"><img src="{% static 'slider/images/Office-rus-1920x800.jpg' %}"></div>
+
+
+      </div>
+    <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+
+    </div>
+  </div>
+  <br>
+  <h1 class="text-center">
+    Factory Task Manager
+  </h1>
+  <p>Welcome to Task Manager of DLS factory!</p>
+  <h2>Dynamic content</h2>
+  <p>The Task Manager has the following record counts:</p>
+  <ul>
+    <li><strong>Projects:</strong> {{ num_projects }}</li>
+    <li><strong>Tasks:</strong> {{ num_tasks }}</li>
+    <li><strong>Posts:</strong> {{ num_posts }}</li>
+    <li><strong>Commentaries:</strong> {{ num_commentaries }}</li>
+  </ul>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      autoplay:{
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      loop: true,
+
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+{% endblock %}

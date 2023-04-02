@@ -1,0 +1,86 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    padding: 10px;
+    text-align: left;
+    background-color: darkgray;
+}
+
+.nav{
+     display: inline;
+}
+
+.nav__link {
+    display: inline-block;
+    margin-right: 150px;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.logo{
+    margin-right: 600px;
+    padding: 3px;
+}
+
+
+.footer{
+    height: 80px;
+    font-size: 20px;
+    background-color: darkgrey;
+    text-align: center;
+}
+
+.footer img{
+    width: 30px;
+}
+
+blockquote{
+   font-size: 20px;
+}
+
+.container-slide{
+    width: 100%;
+    background-color: darkgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper{
+    width: 100%;
+    height: fit-content;
+}
+
+.swiper-slide img{
+    width: 100%;
+}
+
+.swiper .swiper-button-prev, .swiper .swiper-button-next{
+    color: white;
+}
+
+.swiper .swiper-pagination-bullet-active{
+    background: white;
+}
+
+.sidebar-nav{
+    margin-bottom: 100px;
+    padding: 60px;
+    list-style: none;
+    text-align: left;
+}
+
+.diploma {
+    margin-right: 60px;
+    height: 300px;
+    width: 200px;
+}
+
+.diploma-location{
+    text-align: center;
+}

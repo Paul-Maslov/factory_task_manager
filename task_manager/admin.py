@@ -2,7 +2,11 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 
-from task_manager.models import Post, Commentary, Employee, Position, Team, ProjectType, Project, Task
+from task_manager.models import (
+    Post, Commentary, Employee,
+    Position, Team, ProjectType,
+    Project, Task
+)
 
 admin.site.unregister(Group)
 
@@ -29,9 +33,13 @@ class CommentaryAdmin(admin.ModelAdmin):
 @admin.register(Employee)
 class EmployeeAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ("position",)
-    fieldsets = UserAdmin.fieldsets + (("Additional info", {"fields": ("position",)}),)
+    fieldsets = UserAdmin.fieldsets + (
+        ("Additional info", {"fields": ("position",)}),
+    )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        ("Additional info", {"fields": ("first_name", "last_name", "position",)}),
+        ("Additional info", {"fields": (
+            "first_name", "last_name", "position",
+        )}),
     )
 
 
