@@ -2,13 +2,16 @@
 <div class="header">
 
   <span class="logo">
-    <img src="{% static 'images/logodls.png'%}" alt="DLS logo">
+    <a href="https://dls.ua/">
+      <img src="{% static 'images/logodls.png'%}" alt="DLS logo">
+    </a>
   </span>
 
   <div class="nav">
     <a class="nav__link btn btn-success" href="{% url 'task_manager:index' %}">Home</a>
     <a class="nav__link btn btn-success" href="#">Projects</a>
     <a class="nav__link btn btn-success" href="#">Tasks</a>
+    <a class="nav__link btn btn-success" href="{% url 'task_manager:post' %}">Posts</a>
     <a class="nav__link btn btn-success" href="#">Employees</a>
     <a class="nav__link btn btn-success" href="{% url 'task_manager:about' %}">About</a>
   </div>

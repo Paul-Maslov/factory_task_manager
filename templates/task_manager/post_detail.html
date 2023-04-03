@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1 class="text-left">
+    <p><a href="#">PROJECT:</a> "{{ post_detail.task.project.name }}"</p>
+    <p><a href="#">TASK:</a> "{{ post_detail.task.name }}"</p>
+  </h1>
+
+  <section class="p-3 mb-2 bg-success text-white">
+    <h3>Author: {{ post_detail.owner.first_name }} {{ post_detail.owner.last_name }}</h3>
+    <p>Created: {{ post_detail.created_time }}</p>
+    <h3>Post: "{{ post_detail.title }}"</h3>
+    <p>Content: "{{ post_detail.content }}"</p>
+  </section>
+
+  <br>
+
+  <section>
+    <h1 class="text-center"><strong>Commentaries</strong></h1>
+    <div class="p-3 mb-2 bg-dark text-white">
+      <h4>Count of commentaries: {{ post_detail.commentaries.count }}</h4>
+    </div>
+    {%  for commentary in post_detail.commentaries.all %}
+      <div class="alert alert-secondary" role="alert">
+        <h4 class="alert-heading">
+          {{ commentary.user.first_name }} {{ commentary.user.last_name }}
+        </h4>
+        <p>{{ commentary.content }}</p>
+        <hr>
+        <p class="mb-0">{{ commentary.created_time }}</p>
+      </div>
+    {% endfor %}
+
+  </section>
+
+{% endblock %}

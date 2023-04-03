@@ -27,6 +27,9 @@ class Employee(AbstractUser):
         verbose_name = "employee"
         verbose_name_plural = "employees"
 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
 
 class Team(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
@@ -96,6 +99,9 @@ class Task(models.Model):
 
     class Meta:
         ordering = ["deadline", "priority"]
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):

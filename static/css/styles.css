@@ -1,7 +1,14 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    --button-height: 100px;
+    --button-width: 100px;
 }
 
 .header{
@@ -11,7 +18,7 @@ body{
 }
 
 .nav{
-     display: inline;
+    display: inline;
 }
 
 .nav__link {
@@ -27,16 +34,24 @@ body{
     padding: 3px;
 }
 
+.logo img{
+    width: 80px;
+    border-radius: 40px;
+}
 
 .footer{
-    height: 80px;
+    padding: 5px;
+    height: 200px;
+    line-height: 200px;
     font-size: 20px;
+    color: white;
     background-color: darkgrey;
     text-align: center;
 }
 
 .footer img{
-    width: 30px;
+    width: 60px;
+    border-radius: 30px;
 }
 
 blockquote{
@@ -83,4 +98,19 @@ blockquote{
 
 .diploma-location{
     text-align: center;
+}
+
+.scrollTop{
+  content: "&uarr";
+  color:white;
+  width: var(--button-width);
+  height: var(--button-height);
+  border-radius: 5px;
+  background-color: green;
+  position: fixed;
+}
+
+.scrollTop__link {
+  font-size: 50px;
+  color: white;
 }

@@ -29,7 +29,7 @@
 
 </head>
 
-<body>
+<body id="page-top">
 
   <blockquote class="text-right mr-3 text-success">
     <strong>Supercharge your productivity with Task Manager!</strong>
@@ -48,13 +48,14 @@
         {% block content %}{% endblock %}
 
         {% block pagination %}
-{#        {% include "includes/pagination.html" %}#}
+          {% include "includes/pagination.html" %}
         {% endblock %}
 
 
       </div>
     </div>
   </div>
+
   {% block footer %}
     {% include "includes/footer.html" %}
   {% endblock %}

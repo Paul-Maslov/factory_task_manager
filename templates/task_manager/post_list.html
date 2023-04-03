@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center">
+    <strong>View a list of posts by tasks:</strong></h1>
+  <table class="table">
+  <thead class="thead-dark">
+    <tr class="text-center">
+      <th scope="col">Empoyee</th>
+      <th scope="col">Title</th>
+      <th scope="col">Content</th>
+      <th scope="col">Commentaries</th>
+      <th scope="col">Date of completion task</th>
+      <th scope="col">Task</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for post in post_list %}
+    <tr>
+      <th scope="row">
+        {{ post.owner.first_name }} {{ post.owner.last_name }}
+      </th>
+      <td><a href="{%  url "task_manager:post-detail" pk=post.id %}">{{ post.title }}</a></td>
+      <td>{{ post.content }}</td>
+      <td class="text-center">{{ post.commentaries.all.count }}</td>
+      <td class="text-center">{{ post.task.deadline }}</td>
+      <td>{{ post.task.name }}</td>
+
+    </tr>
+  {% endfor %}
+
+
+  </tbody>
+  </table>
+{% endblock %}
