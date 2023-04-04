@@ -23,4 +23,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path("", include("task_manager.urls", namespace="task_manager")),
+
+    path("__debug__/", include("debug_toolbar.urls"))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

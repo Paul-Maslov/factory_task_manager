@@ -18,20 +18,21 @@ body{
 }
 
 .nav{
+    margin-right: 50px;
     display: inline;
 }
 
 .nav__link {
-    display: inline-block;
     margin-right: 150px;
+    display: inline-block;
     font-size: 20px;
     color: white;
     text-decoration: none;
 }
 
 .logo{
-    margin-right: 600px;
-    padding: 3px;
+   margin-right: 100px;
+   padding: 3px;
 }
 
 .logo img{
@@ -39,6 +40,9 @@ body{
     border-radius: 40px;
 }
 
+.login{
+    margin-right: 100px;
+}
 .footer{
     padding: 5px;
     height: 200px;

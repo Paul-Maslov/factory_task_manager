@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+{#  <h1>#}
+{#    Username: {{ employee.username }}#}
+{##}
+{#    <a href="{% url 'taxi:driver-delete' pk=employee.id %}" class="btn btn-danger link-to-page">#}
+{#      Delete driver#}
+{#    </a>#}
+{#    <a href="{% url 'taxi:driver-update' pk=employee.id %}" class="btn btn-secondary link-to-page">#}
+{#      Update driver info#}
+{#    </a>#}
+{##}
+{#  </h1>#}
+
+  <p><strong>First name:</strong> {{ employee.first_name }}</p>
+  <p><strong>Last name:</strong> {{ employee.last_name }}</p>
+  <p><strong>Position:</strong> {{ employee.position }}</p>
+
+{% endblock %}

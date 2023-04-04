@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -5,7 +6,10 @@ from django.urls import reverse
 from django.views import generic
 
 from task_manager.forms import CommentaryCreateForm
-from task_manager.models import Project, Task, Post, Commentary
+from task_manager.models import (
+    Project, Task, Post, Commentary,
+    Employee,
+)
 
 
 def index(request):
@@ -30,7 +34,17 @@ def about(request):
     return render(request, "task_manager/about.html")
 
 
-class PostListView(generic.ListView):
+class EmployeeListView(LoginRequiredMixin, generic.ListView):
+    model = Employee
+    paginate_by = 5
+    queryset = Employee.objects.prefetch_related("tasks", "teams").order_by("last_name")
+
+
+class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Employee
+
+
+class PostListView(LoginRequiredMixin, generic.ListView):
     model = Post
     queryset = Post.objects.select_related(
         "owner"
@@ -40,7 +54,7 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-class PostDetailView(generic.DetailView):
+class PostDetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = "post_detail"
     model = Post
     queryset = Post.objects.prefetch_related(
@@ -52,7 +66,7 @@ class PostDetailView(generic.DetailView):
     ).order_by("created_time")
 
 
-class CommentaryCreateView(generic.CreateView):
+class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
 
     def post(self, request, *args, **kwargs):
         post_id = kwargs["pk"]

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if employee_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Position</th>
+        <th class="text-center">Tasks</th>
+      </tr>
+    {% for employee in employee_list %}
+      <tr>
+        <td>{{ employee.id }}</td>
+        <td>
+          <a href="{{ employee.get_absolute_url }}">
+          {{ employee.username }} {% if user == employee %} (Me){% endif %}</a>
+        </td>
+        <td>{{ employee.first_name }}</td>
+        <td>{{ employee.last_name }}</td>
+        <td>{{ employee.position }}</td>
+        <td class="text-center">{{ employee.tasks.all.count}}</td>
+      </tr>
+    {% endfor %}
+
+    </table>
+    {% else %}
+      <p>There are no employees in the Task Manager.</p>
+  {% endif %}
+{% endblock %}
