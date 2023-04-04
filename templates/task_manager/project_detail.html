@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+   <section class="p-3 mb-2 bg-success text-white">
+    <h3>
+      Author: {{ project_detail.owner.first_name }}
+      {{ project_detail.owner.last_name }}
+    </h3>
+    <p>
+      Created: {{ project_detail.created_time }}
+    </p>
+    <h3>Project: "{{ project_detail.name }}"</h3>
+    <p>Content: "{{ project_detail.description }}"</p>
+  </section>
+
+  <br>
+
+  <section>
+    <h1 class="text-center"><strong>Project Tasks</strong></h1>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th scope="col">Employee</th>
+          <th scope="col">Task name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date of completion task</th>
+          <th scope="col">Completion Mark</th>
+        </tr>
+      </thead>
+  <tbody>
+{#  {% for task in task_list %}#}
+{#    <tr>#}
+{#      <th scope="row">#}
+{#        {{ project.owner.first_name }} {{ project.owner.last_name }}#}
+{#      </th>#}
+{#      <td><a href="#">{{ project.name }}</a></td>#}
+{#      <td>{{ project.description }}</td>#}
+{#      <td class="text-center">{{ project.deadline }}</td>#}
+{#      <td class="text-center">{{ project.task_set.count }}</td>#}
+{#      <td class="text-center">{{ project.team.name }}</td>#}
+{#      <td class="text-center">{{ project.project_type }}</td>#}
+{#      <td class="text-center">#}
+{#        {% if project.is_completed %}#}
+{#          <a#}
+{#            class="btn btn-success"#}
+{#            href="{% url 'task_manager:project-detail' pk=project.id  %}">#}
+{#            Completed#}
+{#          </a>#}
+{#          {% else %}#}
+{#           <a#}
+{#            class="btn btn-danger"#}
+{#            href="{% url 'task_manager:project-detail' pk=project.id  %}">#}
+{#            No completed#}
+{#          </a>#}
+{#        {% endif %}#}
+{##}
+{#      </td>#}
+{#    </tr>#}
+{#  {% endfor %}#}
+
+
+  </tbody>
+  </table>
+
+  </section>
+
+{% endblock %}

@@ -5,6 +5,7 @@ from task_manager.views import (
     PostListView, PostDetailView,
     CommentaryCreateView,
     EmployeeListView, EmployeeDetailView,
+    ProjectListView, ProjectDetailView,
 )
 
 urlpatterns = [
@@ -22,6 +23,12 @@ urlpatterns = [
         "employees/<int:pk>/",
         EmployeeDetailView.as_view(),
         name="employee-detail"
+    ),
+    path("projects/", ProjectListView.as_view(), name="project-list"),
+    path(
+        "projects/<int:pk>",
+        ProjectDetailView.as_view(),
+        name="project-detail"
     ),
 
 ]

@@ -1,0 +1,62 @@
+{%  extends "base.html" %}
+
+{% block content %}
+  <h1>List of all Projects</h1>
+  <table class="table">
+  <thead class="thead-dark">
+    <tr class="text-center">
+      <th scope="col">Empoyee</th>
+      <th scope="col">Project Title</th>
+      <th scope="col">Content</th>
+      <th scope="col">Date of completion project</th>
+      <th scope="col">Task</th>
+      <th scope="col">Project Team</th>
+      <th scope="col">Project Type</th>
+      <th scope="col">Completion Mark</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for project in project_list %}
+    <tr>
+      <th scope="row">
+        {{ project.owner.first_name }} {{ project.owner.last_name }}
+      </th>
+      <td><a href="{%  url 'task_manager:project-detail' pk=project.id %}">{{ project.name }}</a></td>
+      <td>{{ project.description }}</td>
+      <td class="text-center">{{ project.deadline }}</td>
+      <td class="text-center">{{ project.task_set.count }}</td>
+      <td class="text-center">{{ project.team.name }}</td>
+      <td class="text-center">{{ project.project_type }}</td>
+      <td class="text-center">
+        {% if project.is_completed %}
+          <a
+            class="btn btn-success"
+            href="{% url 'task_manager:project-detail' pk=project.id  %}">
+            Completed
+          </a>
+          {% else %}
+           <a
+            class="btn btn-danger"
+            href="{% url 'task_manager:project-detail' pk=project.id  %}">
+            No completed
+          </a>
+        {% endif %}
+
+      </td>
+    </tr>
+  {% endfor %}
+
+
+  </tbody>
+  </table>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

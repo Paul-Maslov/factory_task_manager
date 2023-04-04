@@ -11,8 +11,8 @@ body{
     --button-width: 100px;
 }
 
-.header{
-    padding: 10px;
+.header {
+    padding: 5px;
     text-align: left;
     background-color: darkgray;
 }
@@ -25,9 +25,9 @@ body{
 .nav__link {
     margin-right: 150px;
     display: inline-block;
-    font-size: 20px;
-    color: white;
-    text-decoration: none;
+    font-size: 30px;
+    color: black;
+    text-decoration: burlywood;
 }
 
 .logo{
@@ -37,11 +37,16 @@ body{
 
 .logo img{
     width: 80px;
-    border-radius: 40px;
+
 }
 
 .login{
-    margin-right: 100px;
+    margin-right: 300px;
+}
+
+.banner{
+    padding: 10px;
+    font-size: 40px;
 }
 .footer{
     padding: 5px;
@@ -90,8 +95,20 @@ blockquote{
 .sidebar-nav{
     margin-bottom: 100px;
     padding: 60px;
+    display: inline;
     list-style: none;
     text-align: left;
+}
+.sidebar-button{
+    height: 80px;
+    width: 160px;
+    line-height: 80px;
+    font-size: 20px;
+    color: white;
+    display: inline-block;
+    background-color: green;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .diploma {

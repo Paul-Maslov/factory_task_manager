@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <h1>List of employees</h1>
   {% if employee_list %}
     <table class="table">
       <tr>
@@ -9,7 +10,9 @@
         <th>First name</th>
         <th>Last name</th>
         <th>Position</th>
+        <th class="text-center">Projects</th>
         <th class="text-center">Tasks</th>
+        <th class="text-center">Posts</th>
       </tr>
     {% for employee in employee_list %}
       <tr>
@@ -21,7 +24,9 @@
         <td>{{ employee.first_name }}</td>
         <td>{{ employee.last_name }}</td>
         <td>{{ employee.position }}</td>
+        <td class="text-center">{{ employee.project.all.count}}</td>
         <td class="text-center">{{ employee.tasks.all.count}}</td>
+        <td>{{ employee.post.commentaries.all.count }}</td>
       </tr>
     {% endfor %}
 

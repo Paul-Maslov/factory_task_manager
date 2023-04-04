@@ -44,6 +44,25 @@ class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Employee
 
 
+class ProjectListView(LoginRequiredMixin, generic.ListView):
+    model = Project
+    paginate_by = 5
+    queryset = Project.objects.select_related("project_type", "owner").prefetch_related(
+       "team",
+       "task_set",
+    ).order_by("deadline")
+
+
+class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
+    context_object_name = "project_detail"
+    model = Project
+    queryset = Project.objects.select_related(
+        "owner"
+    ).prefetch_related(
+        "task_set"
+    ).order_by("deadline")
+
+
 class PostListView(LoginRequiredMixin, generic.ListView):
     model = Post
     queryset = Post.objects.select_related(
