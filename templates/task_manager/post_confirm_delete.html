@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Delete Post</h1>
+
+  <p>Are you sure you want to delete Post <strong>"{{ post.title }}"</strong>?</p>
+  <p><i>All commentaries with this Post will be also deleted!!!</i></p>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+
+    <input type="submit" class="btn btn-danger" value="Yes, delete" />
+
+  </form>
+
+{% endblock %}

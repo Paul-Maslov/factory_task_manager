@@ -30,6 +30,13 @@ body{
     text-decoration: burlywood;
 }
 
+.project{
+    display: inline;
+}
+
+.project__part{
+    display: inline-block;
+}
 .logo{
    margin-right: 100px;
    padding: 3px;

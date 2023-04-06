@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+  <h1>
+    <strong>List of all Tasks.</strong>
+    <a
+      class="btn btn-primary"
+      style="float: right"
+      href="{% url 'task_manager:task-create' %}">
+      Create Task
+    </a>
+  </h1>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr class="text-center">
+        <th scope="col">Project</th>
+        <th scope="col">Task Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">Update task</th>
+        <th scope="col">Delete task</th>
+        <th scope="col">Date of completion task</th>
+        <th scope="col">Completion Mark</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for task in task_list %}
+      <tr>
+        <td><a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a></td>
+        <td><a href="{% url 'task_manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
+        <td class="text-center">{{ task.description }}</td>
+        <td class="text-center">
+          <a class="btn btn-primary" href="{% url 'task_manager:task-update' pk=task.id %}">
+            Upd
+          </a>
+        </td>
+        <td class="text-center">
+          <a class="btn btn-danger" href="{% url 'task_manager:task-delete' pk=task.id %}">
+            Del
+          </a>
+        </td>
+        <td class="text-center">{{ task.deadline }}</td>
+        <td class="text-center">
+        {% if task.is_completed %}
+          <a
+            class="btn btn-success"
+            href="#">
+            Completed
+          </a>
+          {% else %}
+           <a
+            class="btn btn-danger"
+            href="#">
+            No completed
+          </a>
+        {% endif %}
+
+        </td>
+      </tr>
+    {% endfor %}
+
+
+    </tbody>
+  </table>
+
+
+
+{% endblock %}

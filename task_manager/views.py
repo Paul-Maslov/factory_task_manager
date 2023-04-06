@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 
 from task_manager.forms import CommentaryCreateForm
@@ -37,7 +37,7 @@ def about(request):
 class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = Employee
     paginate_by = 5
-    queryset = Employee.objects.prefetch_related("tasks", "teams").order_by("last_name")
+    queryset = Employee.objects.prefetch_related("task", "teams").order_by("last_name")
 
 
 class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
@@ -49,8 +49,26 @@ class ProjectListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
     queryset = Project.objects.select_related("project_type", "owner").prefetch_related(
        "team",
-       "task_set",
+       "task",
     ).order_by("deadline")
+
+
+class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Project
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:project-list")
+
+
+class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Project
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:project-list")
+
+
+class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Project
+    template_name = "task_manager/project_confirm_delete.html"
+    success_url = reverse_lazy("task_manager:project-list")
 
 
 class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
@@ -59,8 +77,42 @@ class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Project.objects.select_related(
         "owner"
     ).prefetch_related(
-        "task_set"
-    ).order_by("deadline")
+        "task"
+    )
+
+
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    paginate_by = 5
+    queryset = Task.objects.select_related(
+        "project"
+    ).prefetch_related("assignees").order_by("deadline")
+
+
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Task
+    template_name = "task_manager/task_confirm_delete.html"
+    success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+    context_object_name = "task_detail"
+    model = Task
+    queryset = Task.objects.select_related(
+        "project"
+    ).prefetch_related("post__owner")
 
 
 class PostListView(LoginRequiredMixin, generic.ListView):
@@ -73,11 +125,29 @@ class PostListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
 
+class PostCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Post
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:post-list")
+
+
+class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Post
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:post-list")
+
+
+class PostDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Post
+    template_name = "task_manager/post_confirm_delete.html"
+    success_url = reverse_lazy("task_manager:post-list")
+
+
 class PostDetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = "post_detail"
     model = Post
     queryset = Post.objects.prefetch_related(
-        "task__assignees__tasks"
+        "task__assignees__task"
     ).prefetch_related(
         "commentaries"
     ).select_related(

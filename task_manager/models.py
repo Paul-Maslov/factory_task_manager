@@ -99,8 +99,8 @@ class Task(models.Model):
         choices=PRIORITY_CHOICES,
         default="B"
     )
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    assignees = models.ManyToManyField(Employee, related_name="tasks")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="task")
+    assignees = models.ManyToManyField(Employee, related_name="task")
 
     class Meta:
         ordering = ["deadline", "priority"]
@@ -122,6 +122,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         null=True,
         blank=True,
+        related_name="post",
     )
 
     class Meta:

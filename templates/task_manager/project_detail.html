@@ -2,67 +2,117 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-   <section class="p-3 mb-2 bg-success text-white">
-    <h3>
-      Author: {{ project_detail.owner.first_name }}
-      {{ project_detail.owner.last_name }}
-    </h3>
-    <p>
-      Created: {{ project_detail.created_time }}
-    </p>
-    <h3>Project: "{{ project_detail.name }}"</h3>
-    <p>Content: "{{ project_detail.description }}"</p>
+  <section class="p-3 mb-2 bg-success text-white">
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-sm-7">
+           <h3 class="project__part">
+             Owner: {{ project_detail.owner.first_name }}
+             {{ project_detail.owner.last_name }}
+           </h3>
+           <p>
+             Created: {{ project_detail.created_time }}
+           </p>
+           <h3>Project: "{{ project_detail.name }}"</h3>
+           <p>
+             Content: "{{ project_detail.description }}"
+           </p>
+        </div>
+
+        <div class="col-sm-5">
+          <h3 class="project__part">
+            Deadline project: {{ project_detail.deadline }}
+          </h3>
+          <br><br>
+          <h3>
+            Mark completion of Project:
+          </h3>
+          {% if project_detail.is_completed %}
+            <p class="text-center btn btn-secondary">Completed</p>
+            {% else %}
+            <p class="text-center btn btn-danger">No completed</p>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+
   </section>
 
   <br>
 
   <section>
-    <h1 class="text-center"><strong>Project Tasks</strong></h1>
+    <h1 class="text-left">
+      <strong>Project contains: &emsp;&emsp; {{ project_detail.task.all.count }} Tasks</strong>
+    <a
+      class="btn btn-primary"
+      style="float: right"
+      href="{% url 'task_manager:task-create' %}">
+      Create Task
+    </a>
+    </h1>
     <table class="table">
       <thead class="thead-dark">
         <tr class="text-center">
-          <th scope="col">Employee</th>
           <th scope="col">Task name</th>
           <th scope="col">Description</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Update task</th>
+          <th scope="col">Delete task</th>
           <th scope="col">Date of completion task</th>
           <th scope="col">Completion Mark</th>
         </tr>
       </thead>
-  <tbody>
-{#  {% for task in task_list %}#}
-{#    <tr>#}
-{#      <th scope="row">#}
-{#        {{ project.owner.first_name }} {{ project.owner.last_name }}#}
-{#      </th>#}
-{#      <td><a href="#">{{ project.name }}</a></td>#}
-{#      <td>{{ project.description }}</td>#}
-{#      <td class="text-center">{{ project.deadline }}</td>#}
-{#      <td class="text-center">{{ project.task_set.count }}</td>#}
-{#      <td class="text-center">{{ project.team.name }}</td>#}
-{#      <td class="text-center">{{ project.project_type }}</td>#}
-{#      <td class="text-center">#}
-{#        {% if project.is_completed %}#}
-{#          <a#}
-{#            class="btn btn-success"#}
-{#            href="{% url 'task_manager:project-detail' pk=project.id  %}">#}
-{#            Completed#}
-{#          </a>#}
-{#          {% else %}#}
-{#           <a#}
-{#            class="btn btn-danger"#}
-{#            href="{% url 'task_manager:project-detail' pk=project.id  %}">#}
-{#            No completed#}
-{#          </a>#}
-{#        {% endif %}#}
-{##}
-{#      </td>#}
-{#    </tr>#}
-{#  {% endfor %}#}
-
-
-  </tbody>
-  </table>
-
+      <tbody>
+        {% for task in project_detail.task.all %}
+          <tr>
+            <td><a href="{% url 'task_manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
+            <td>{{ task.description }}</td>
+            <td class="text-center">
+              {% if task.priority == "A"  %}
+                <span class="btn btn-danger">{{ task.get_priority_display }}</span>
+                {% elif task.priority == "B" %}
+                <span class="btn btn-primary">{{ task.get_priority_display }}</span>
+                {% else %}
+                <span class="btn btn-light">{{ task.get_priority_display }}</span>
+              {% endif %}
+            </td>
+            <td class="text-center">
+              <a
+                class="btn btn-primary"
+                href="{% url 'task_manager:task-update' pk=task.id %}">
+                Upd
+              </a>
+            </td>
+            <td class="text-center">
+              <a
+                class="btn btn-danger"
+                href="{% url 'task_manager:task-delete' pk=task.id %}">
+                Del
+              </a>
+            </td>
+            <td class="text-center">{{ task.deadline }}</td>
+            <td class="text-center">
+              {% if task.is_completed %}
+                <a
+                  class="btn btn-success"
+                  href="{% url 'task_manager:task-detail' pk=task.id %}">
+                  Completed
+                </a>
+              {% else %}
+                <a
+                  class="btn btn-danger"
+                  href="{% url 'task_manager:task-detail' pk=task.id %}">
+                  No completed
+                </a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </section>
 
 {% endblock %}

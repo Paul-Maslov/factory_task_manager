@@ -1,18 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1 class="text-center">
-    <strong>View a list of posts by tasks:</strong></h1>
+  <h1>
+    <strong>List of posts of tasks:</strong>
+    <a
+      class="btn btn-primary"
+      style="float: right"
+      href="{% url 'task_manager:post-create' %}">
+      Create Post
+    </a>
+  </h1>
   <table class="table">
   <thead class="thead-dark">
     <tr class="text-center">
-      <th scope="col">Empoyee</th>
+      <th scope="col">Employee</th>
       <th scope="col">Title</th>
       <th scope="col">Content</th>
+      <th scope="col">Update post</th>
+      <th scope="col">Delete post</th>
       <th scope="col">Commentaries</th>
+      <th scope="col">Belongs to Task</th>
       <th scope="col">Date of completion task</th>
-      <th scope="col">Task</th>
-
     </tr>
   </thead>
   <tbody>
@@ -21,12 +29,21 @@
       <th scope="row">
         {{ post.owner.first_name }} {{ post.owner.last_name }}
       </th>
-      <td><a href="{%  url "task_manager:post-detail" pk=post.id %}">{{ post.title }}</a></td>
+      <td><a href="{%  url 'task_manager:post-detail' pk=post.id %}">{{ post.title }}</a></td>
       <td>{{ post.content }}</td>
+      <td class="text-center">
+        <a class="btn btn-primary" href="{% url 'task_manager:post-update' pk=post.id %}">
+          Upd
+        </a>
+      </td>
+      <td class="text-center">
+        <a class="btn btn-danger" href="{% url 'task_manager:post-delete' pk=post.id %}">
+          Del
+        </a>
+      </td>
       <td class="text-center">{{ post.commentaries.all.count }}</td>
+      <td><a href="{% url 'task_manager:task-detail' pk=post.task.id %}">{{ post.task.name }}</a></td>
       <td class="text-center">{{ post.task.deadline }}</td>
-      <td>{{ post.task.name }}</td>
-
     </tr>
   {% endfor %}
 
