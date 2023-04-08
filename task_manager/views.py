@@ -1,11 +1,14 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from task_manager.forms import CommentaryCreateForm
+from task_manager.forms import (
+    CommentaryCreateForm, EmployeeCreationForm,
+    EmployeeSearchForm, ProjectSearchForm,
+    TaskSearchForm, PostSearchForm,
+)
 from task_manager.models import (
     Project, Task, Post, Commentary,
     Employee,
@@ -37,7 +40,47 @@ def about(request):
 class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = Employee
     paginate_by = 5
-    queryset = Employee.objects.prefetch_related("task", "teams").order_by("last_name")
+    queryset = Employee.objects.prefetch_related(
+        "task", "teams"
+    ).order_by("last_name")
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(EmployeeListView, self).get_context_data(**kwargs)
+
+        username = self.request.GET.get("username", "")
+
+        context["search_form"] = EmployeeSearchForm(
+            initial={"username": username}
+        )
+
+        return context
+
+    def get_queryset(self):
+        queryset = Employee.objects.all()
+        form = EmployeeSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
+
+        return queryset
+
+
+class EmployeeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Employee
+    form_class = EmployeeCreationForm
+
+
+class EmployeeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Employee
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:employee-list")
+
+
+class EmployeeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Employee
+    success_url = reverse_lazy("task_manager:employee-list")
 
 
 class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
@@ -47,10 +90,35 @@ class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
 class ProjectListView(LoginRequiredMixin, generic.ListView):
     model = Project
     paginate_by = 5
-    queryset = Project.objects.select_related("project_type", "owner").prefetch_related(
+    queryset = Project.objects.select_related(
+        "project_type",
+        "owner"
+    ).prefetch_related(
        "team",
        "task",
     ).order_by("deadline")
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProjectListView, self).get_context_data(**kwargs)
+
+        name = self.request.GET.get("name", "")
+
+        context["search_form"] = ProjectSearchForm(
+            initial={"name": name}
+        )
+
+        return context
+
+    def get_queryset(self):
+        queryset = Project.objects.all()
+        form = ProjectSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+
+        return queryset
 
 
 class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
@@ -88,6 +156,28 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         "project"
     ).prefetch_related("assignees").order_by("deadline")
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskListView, self).get_context_data(**kwargs)
+
+        name = self.request.GET.get("name", "")
+
+        context["search_form"] = TaskSearchForm(
+            initial={"name": name}
+        )
+
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.all()
+        form = TaskSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+
+        return queryset
+
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
@@ -123,6 +213,28 @@ class PostListView(LoginRequiredMixin, generic.ListView):
         "commentaries"
     ).order_by("created_time")
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+
+        title = self.request.GET.get("name", "")
+
+        context["search_form"] = PostSearchForm(
+            initial={"title": title}
+        )
+
+        return context
+
+    def get_queryset(self):
+        queryset = Post.objects.all()
+        form = PostSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(
+                title__icontains=form.cleaned_data["title"]
+            )
+
+        return queryset
 
 
 class PostCreateView(LoginRequiredMixin, generic.CreateView):

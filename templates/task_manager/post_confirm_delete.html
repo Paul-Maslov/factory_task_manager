@@ -11,6 +11,13 @@
     {% csrf_token %}
 
     <input type="submit" class="btn btn-danger" value="Yes, delete" />
+    <input
+        formaction="/post/"
+        formmethod="get"
+        type="submit"
+        value="Cancel"
+        class="btn btn-primary"
+    >
 
   </form>
 

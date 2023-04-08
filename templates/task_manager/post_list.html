@@ -9,45 +9,53 @@
       href="{% url 'task_manager:post-create' %}">
       Create Post
     </a>
+    <span>
+      {% block search %}
+        {% include "includes/search.html" %}
+      {% endblock %}
+    </span>
   </h1>
+
   <table class="table">
-  <thead class="thead-dark">
-    <tr class="text-center">
-      <th scope="col">Employee</th>
-      <th scope="col">Title</th>
-      <th scope="col">Content</th>
-      <th scope="col">Update post</th>
-      <th scope="col">Delete post</th>
-      <th scope="col">Commentaries</th>
-      <th scope="col">Belongs to Task</th>
-      <th scope="col">Date of completion task</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for post in post_list %}
-    <tr>
-      <th scope="row">
-        {{ post.owner.first_name }} {{ post.owner.last_name }}
-      </th>
-      <td><a href="{%  url 'task_manager:post-detail' pk=post.id %}">{{ post.title }}</a></td>
-      <td>{{ post.content }}</td>
-      <td class="text-center">
-        <a class="btn btn-primary" href="{% url 'task_manager:post-update' pk=post.id %}">
-          Upd
-        </a>
-      </td>
-      <td class="text-center">
-        <a class="btn btn-danger" href="{% url 'task_manager:post-delete' pk=post.id %}">
-          Del
-        </a>
-      </td>
-      <td class="text-center">{{ post.commentaries.all.count }}</td>
-      <td><a href="{% url 'task_manager:task-detail' pk=post.task.id %}">{{ post.task.name }}</a></td>
-      <td class="text-center">{{ post.task.deadline }}</td>
-    </tr>
-  {% endfor %}
+    <thead class="thead-dark">
+      <tr class="text-center">
+        <th scope="col">Employee</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">Commentaries</th>
+        <th scope="col">Belongs to Task</th>
+        <th scope="col">Upd post</th>
+        <th scope="col">Del post</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in post_list %}
+      <tr>
+        <th scope="row">
+          {{ post.owner.first_name }} {{ post.owner.last_name }}
+        </th>
+        <td><a href="{%  url 'task_manager:post-detail' pk=post.id %}">{{ post.title }}</a></td>
+        <td>{{ post.content }}</td>
+        <td class="text-center">{{ post.commentaries.all.count }}</td>
+        <td>
+          <a href="{% url 'task_manager:task-detail' pk=post.task.id %}">
+            {{ post.task.name }}
+          </a>
+        </td>
+        <td class="text-center">
+          <a href="{% url 'task_manager:post-update' pk=post.id %}">
+            🆗
+          </a>
+        </td>
+        <td class="text-center">
+          <a href="{% url 'task_manager:post-delete' pk=post.id %}">
+            ⛔️
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
 
-
-  </tbody>
+    </tbody>
   </table>
+
 {% endblock %}

@@ -61,6 +61,7 @@ class Project(models.Model):
     description = models.TextField(null=True, blank=True)
     created_time = models.DateTimeField(auto_now_add=True)
     deadline = models.DateField(null=True, blank=True)
+    fact_date = models.DateField(null=True, blank=True)
     is_completed = models.BooleanField()
     owner = models.ForeignKey(
         Employee,
@@ -80,7 +81,7 @@ class Project(models.Model):
         ordering = ["deadline"]
 
     def __str__(self) -> str:
-        return f"{self.name} ({self.owner.last_name})"
+        return self.name
 
 
 class Task(models.Model):
@@ -93,13 +94,18 @@ class Task(models.Model):
     description = models.TextField(null=True, blank=True)
     created_time = models.DateTimeField(auto_now_add=True)
     deadline = models.DateField(null=True, blank=True)
+    fact_date = models.DateField(null=True, blank=True)
     is_completed = models.BooleanField()
     priority = models.CharField(
         max_length=1,
         choices=PRIORITY_CHOICES,
         default="B"
     )
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="task")
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="task"
+    )
     assignees = models.ManyToManyField(Employee, related_name="task")
 
     class Meta:

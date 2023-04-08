@@ -46,12 +46,12 @@
   <section>
     <h1 class="text-left">
       <strong>Project contains: &emsp;&emsp; {{ project_detail.task.all.count }} Tasks</strong>
-    <a
-      class="btn btn-primary"
-      style="float: right"
-      href="{% url 'task_manager:task-create' %}">
-      Create Task
-    </a>
+      <a
+        class="btn btn-primary"
+        style="float: right"
+        href="{% url 'task_manager:project-update' pk=project_detail.id %}">
+        Update this Project
+      </a>
     </h1>
     <table class="table">
       <thead class="thead-dark">
@@ -59,10 +59,10 @@
           <th scope="col">Task name</th>
           <th scope="col">Description</th>
           <th scope="col">Priority</th>
-          <th scope="col">Update task</th>
-          <th scope="col">Delete task</th>
-          <th scope="col">Date of completion task</th>
+          <th scope="col">Complete Plan Date</th>
           <th scope="col">Completion Mark</th>
+          <th scope="col">Upd task</th>
+          <th scope="col">Del task</th>
         </tr>
       </thead>
       <tbody>
@@ -72,26 +72,12 @@
             <td>{{ task.description }}</td>
             <td class="text-center">
               {% if task.priority == "A"  %}
-                <span class="btn btn-danger">{{ task.get_priority_display }}</span>
+                <span class="btn-outline-danger">{{ task.get_priority_display }}</span>
                 {% elif task.priority == "B" %}
-                <span class="btn btn-primary">{{ task.get_priority_display }}</span>
+                <span class="btn-outline-primary">{{ task.get_priority_display }}</span>
                 {% else %}
-                <span class="btn btn-light">{{ task.get_priority_display }}</span>
+                <span class="btn-light">{{ task.get_priority_display }}</span>
               {% endif %}
-            </td>
-            <td class="text-center">
-              <a
-                class="btn btn-primary"
-                href="{% url 'task_manager:task-update' pk=task.id %}">
-                Upd
-              </a>
-            </td>
-            <td class="text-center">
-              <a
-                class="btn btn-danger"
-                href="{% url 'task_manager:task-delete' pk=task.id %}">
-                Del
-              </a>
             </td>
             <td class="text-center">{{ task.deadline }}</td>
             <td class="text-center">
@@ -109,10 +95,30 @@
                 </a>
               {% endif %}
             </td>
+            <td class="text-center">
+              <a
+                href="{% url 'task_manager:task-update' pk=task.id %}">
+                🆗
+              </a>
+            </td>
+            <td class="text-center">
+              <a
+                href="{% url 'task_manager:task-delete' pk=task.id %}">
+                ⛔️
+              </a>
+            </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </section>
+
+  <br>
+  <a
+    class="btn btn-primary"
+    style="float: left"
+    href="{% url 'task_manager:task-create' %}">
+    Add new Task
+  </a>
 
 {% endblock %}

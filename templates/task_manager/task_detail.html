@@ -59,8 +59,8 @@
           <th scope="col">Content</th>
           <th scope="col">Owner</th>
           <th scope="col">Date of post</th>
-          <th scope="col">Update post</th>
-          <th scope="col">Delete post</th>
+          <th scope="col">Upd post</th>
+          <th scope="col">Del post</th>
         </tr>
       </thead>
       <tbody>
@@ -72,16 +72,14 @@
             <td class="text-center">{{ post.created_time }}</td>
             <td class="text-center">
               <a
-                class="btn btn-primary"
                 href="{% url 'task_manager:post-update' pk=post.id %}">
-                Upd
+                🆗
               </a>
             </td>
             <td class="text-center">
               <a
-                class="btn btn-danger"
                 href="{% url 'task_manager:post-delete' pk=post.id %}">
-                Del
+                ⛔️
               </a>
             </td>
           </tr>
@@ -89,4 +87,13 @@
       </tbody>
     </table>
   </section>
+
+  <br>
+   <a
+     class="btn btn-primary"
+     style="float: left"
+     href="{% url 'task_manager:post-create' %}">
+     Add new Post
+   </a>
+
 {% endblock %}

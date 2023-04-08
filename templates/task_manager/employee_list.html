@@ -1,7 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1><strong>List of employees</strong></h1>
+  <h1>
+    <strong>List of employees: </strong>
+    <a
+      class="btn btn-primary"
+      style="float: right"
+      href="{% url 'task_manager:employee-create'%}">
+      Add New Employee
+    </a>
+    <span>
+      {% block search %}
+        {% include "includes/search.html" %}
+      {% endblock %}
+    </span>
+  </h1>
+
+
   {% if employee_list %}
     <table class="table">
       <tr class="thead-dark">
@@ -12,7 +27,10 @@
         <th>Position</th>
         <th class="text-center">Projects</th>
         <th class="text-center">Tasks</th>
-        <th class="text-center">Posts</th>
+        <th class="text-center">Commentaries</th>
+        <th class="text-center">Upd employee</th>
+        <th class="text-center">Del employee</th>
+
       </tr>
     {% for employee in employee_list %}
       <tr>
@@ -25,8 +43,18 @@
         <td>{{ employee.last_name }}</td>
         <td>{{ employee.position }}</td>
         <td class="text-center">{{ employee.project.all.count}}</td>
-        <td class="text-center">{{ employee.tasks.all.count}}</td>
-        <td>{{ employee.post.commentaries.all.count }}</td>
+        <td class="text-center">{{ employee.task.all.count}}</td>
+        <td class="text-center">{{ employee.post.commentaries.all.count }}</td>
+        <td class="text-center">
+          <a href="{% url 'task_manager:employee-update' pk=employee.id %}">
+            🆗
+          </a>
+        </td>
+        <td class="text-center">
+          <a href="{% url 'task_manager:employee-delete' pk=employee.id %}">
+            ⛔️
+          </a>
+        </td>
       </tr>
     {% endfor %}
 

@@ -11,6 +11,11 @@
       href="{% url 'task_manager:task-create' %}">
       Create Task
     </a>
+    <span>
+      {% block search %}
+        {% include "includes/search.html" %}
+      {% endblock %}
+    </span>
   </h1>
   <table class="table">
     <thead class="thead-dark">
@@ -18,29 +23,21 @@
         <th scope="col">Project</th>
         <th scope="col">Task Title</th>
         <th scope="col">Content</th>
-        <th scope="col">Update task</th>
-        <th scope="col">Delete task</th>
-        <th scope="col">Date of completion task</th>
+        <th scope="col">Complete Plan Date</th>
+        <th scope="col">Complete Fact Date</th>
         <th scope="col">Completion Mark</th>
+        <th scope="col">Upd task</th>
+        <th scope="col">Del task</th>
       </tr>
     </thead>
     <tbody>
-    {% for task in task_list %}
+      {% for task in task_list %}
       <tr>
         <td><a href="{% url 'task_manager:project-detail' pk=task.project.id %}">{{ task.project.name }}</a></td>
         <td><a href="{% url 'task_manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
         <td class="text-center">{{ task.description }}</td>
-        <td class="text-center">
-          <a class="btn btn-primary" href="{% url 'task_manager:task-update' pk=task.id %}">
-            Upd
-          </a>
-        </td>
-        <td class="text-center">
-          <a class="btn btn-danger" href="{% url 'task_manager:task-delete' pk=task.id %}">
-            Del
-          </a>
-        </td>
         <td class="text-center">{{ task.deadline }}</td>
+        <td class="text-center">{{ task.fact_date }}</td>
         <td class="text-center">
         {% if task.is_completed %}
           <a
@@ -55,15 +52,21 @@
             No completed
           </a>
         {% endif %}
-
+        </td>
+        <td class="text-center">
+          <a href="{% url 'task_manager:task-update' pk=task.id %}">
+            🆗
+          </a>
+        </td>
+        <td class="text-center">
+          <a href="{% url 'task_manager:task-delete' pk=task.id %}">
+            ⛔️
+          </a>
         </td>
       </tr>
-    {% endfor %}
-
+      {% endfor %}
 
     </tbody>
   </table>
-
-
 
 {% endblock %}

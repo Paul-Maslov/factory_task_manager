@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 
 from task_manager.views import (
     index, about,
@@ -6,6 +6,7 @@ from task_manager.views import (
     PostCreateView, PostUpdateView, PostDeleteView,
     CommentaryCreateView,
     EmployeeListView, EmployeeDetailView,
+    EmployeeCreateView, EmployeeUpdateView, EmployeeDeleteView,
     ProjectListView, ProjectDetailView,
     ProjectCreateView, ProjectUpdateView, ProjectDeleteView,
     TaskListView, TaskDetailView,
@@ -34,6 +35,21 @@ urlpatterns = [
         name="post-create-comment"
     ),
     path("employees/", EmployeeListView.as_view(), name="employee-list"),
+    path(
+        "employees/create/",
+        EmployeeCreateView.as_view(),
+        name="employee-create"
+    ),
+    path(
+        "employees/<int:pk>/update/",
+        EmployeeUpdateView.as_view(),
+        name="employee-update"
+    ),
+    path(
+        "employees/<int:pk>/delete/",
+        EmployeeDeleteView.as_view(),
+        name="employee-delete"
+    ),
     path(
         "employees/<int:pk>/",
         EmployeeDetailView.as_view(),
