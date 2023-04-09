@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block content %}
 
   <h1>
@@ -37,21 +36,19 @@
         <td><a href="{% url 'task_manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
         <td class="text-center">{{ task.description }}</td>
         <td class="text-center">{{ task.deadline }}</td>
-        <td class="text-center">{{ task.fact_date }}</td>
         <td class="text-center">
-        {% if task.is_completed %}
-          <a
-            class="btn btn-success"
-            href="#">
-            Completed
-          </a>
-          {% else %}
-           <a
-            class="btn btn-danger"
-            href="#">
-            No completed
-          </a>
-        {% endif %}
+          {% if task.fact_date %}
+            {{ task.fact_date }}
+            {% else %}
+            <a href="{% url 'task_manager:task-detail' pk=task.id %}" class="btn btn-outline-primary">Do task</a>
+         {% endif %}
+        </td>
+        <td class="text-center">
+          {% if task.is_completed %}
+            <p class="btn btn-success">Completed</p>
+            {% else %}
+            <p class="btn btn-danger">Open</p>
+          {% endif %}
         </td>
         <td class="text-center">
           <a href="{% url 'task_manager:task-update' pk=task.id %}">

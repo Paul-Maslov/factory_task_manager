@@ -8,6 +8,7 @@ from task_manager.forms import (
     CommentaryCreateForm, EmployeeCreationForm,
     EmployeeSearchForm, ProjectSearchForm,
     TaskSearchForm, PostSearchForm,
+    TaskForm, ProjectForm,
 )
 from task_manager.models import (
     Project, Task, Post, Commentary,
@@ -86,6 +87,11 @@ class EmployeeDeleteView(LoginRequiredMixin, generic.DeleteView):
 class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Employee
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(EmployeeDetailView, self).get_context_data(**kwargs)
+        context['meta'] = self.get_object().as_meta(self.request)
+        return context
+
 
 class ProjectListView(LoginRequiredMixin, generic.ListView):
     model = Project
@@ -147,6 +153,32 @@ class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
     ).prefetch_related(
         "task"
     )
+    success_url = reverse_lazy("task_manager:project-list")
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProjectDetailView, self).get_context_data(**kwargs)
+
+        fact_date = self.request.GET.get("fact_date", "")
+
+        context["done_form"] = ProjectForm(
+            initial={"fact_date": fact_date}
+        )
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        project_id = kwargs["pk"]
+        post_url = reverse("task_manager:task-detail", kwargs={"pk": project_id})
+        form = TaskForm(request.POST)
+
+        if form.is_valid():
+            content = form.cleaned_data["fact_date"]
+
+            project = Project.objects.get(pk=project_id)
+            project.fact_date = content
+            project.save()
+
+        return HttpResponseRedirect(post_url)
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
@@ -155,6 +187,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     queryset = Task.objects.select_related(
         "project"
     ).prefetch_related("assignees").order_by("deadline")
+    success_url = reverse_lazy("task_manager:task-list")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
@@ -203,6 +236,32 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Task.objects.select_related(
         "project"
     ).prefetch_related("post__owner")
+    success_url = reverse_lazy("task_manager:task-list")
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskDetailView, self).get_context_data(**kwargs)
+
+        fact_date = self.request.GET.get("fact_date", "")
+
+        context["done_form"] = TaskForm(
+            initial={"fact_date": fact_date}
+        )
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        task_id = kwargs["pk"]
+        post_url = reverse("task_manager:task-detail", kwargs={"pk": task_id})
+        form = TaskForm(request.POST)
+
+        if form.is_valid():
+            content = form.cleaned_data["fact_date"]
+
+            task = Task.objects.get(pk=task_id)
+            task.fact_date = content
+            task.save()
+
+        return HttpResponseRedirect(post_url)
 
 
 class PostListView(LoginRequiredMixin, generic.ListView):

@@ -6,9 +6,10 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("task_manager", "0004_alter_project_description_alter_task_description"),
-    ]
+    dependencies = [(
+        "task_manager",
+        "0004_alter_project_description_alter_task_description"
+    ), ]
 
     operations = [
         migrations.AlterField(
@@ -16,7 +17,9 @@ class Migration(migrations.Migration):
             name="is_active",
             field=models.BooleanField(
                 default=True,
-                help_text="Designates whether this user should be treated as active. Unselect this instead of deleting accounts.",
+                help_text="Designates whether this user"
+                          " should be treated as active. "
+                          "Unselect this instead of deleting accounts.",
                 verbose_name="active",
             ),
         ),

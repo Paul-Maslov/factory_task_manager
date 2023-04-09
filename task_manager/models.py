@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
+from meta.models import ModelMeta
 
 
 class Position(models.Model):
@@ -14,7 +15,8 @@ class Position(models.Model):
         return self.name
 
 
-class Employee(AbstractUser):
+class Employee(AbstractUser, ModelMeta):
+    photo = models.ImageField(upload_to="foto_users/", blank=True)
     position = models.ForeignKey(
         Position,
         null=True,
@@ -27,6 +29,14 @@ class Employee(AbstractUser):
         ordering = ["username"]
         verbose_name = "employee"
         verbose_name_plural = "employees"
+
+    _metadata = {
+           'photo': 'get_meta_photo',
+    }
+
+    def get_meta_image(self):
+        if self.photo:
+            return self.photo.url
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -83,6 +93,11 @@ class Project(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def save(self, *args, **kwargs):
+        if self.fact_date:
+            self.is_completed = True
+        super(Project, self).save(*args, **kwargs)
+
 
 class Task(models.Model):
     PRIORITY_CHOICES = (
@@ -113,6 +128,11 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.fact_date:
+            self.is_completed = True
+        super(Task, self).save(*args, **kwargs)
 
 
 class Post(models.Model):

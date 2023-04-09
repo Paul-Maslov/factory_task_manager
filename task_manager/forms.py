@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
 from task_manager.models import Employee
@@ -10,7 +9,8 @@ class EmployeeCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = Employee
-        fields = UserCreationForm.Meta.fields + ("first_name", "last_name",  "position",)
+        fields = UserCreationForm.Meta.fields + \
+            ("first_name", "last_name",  "position", "photo")
 
 
 class CommentaryCreateForm(forms.ModelForm):
@@ -33,8 +33,19 @@ class ProjectSearchForm(forms.Form):
         max_length=70,
         required=False,
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search by project title:"})
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by project title:"}
+        )
     )
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ("fact_date",)
+        widgets = {
+            "fact_date": forms.DateInput(attrs={"type": "date"})
+        }
 
 
 class TaskSearchForm(forms.Form):
@@ -44,6 +55,15 @@ class TaskSearchForm(forms.Form):
         label="",
         widget=forms.TextInput(attrs={"placeholder": "Search by task title:"})
     )
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ("fact_date",)
+        widgets = {
+            "fact_date": forms.DateInput(attrs={"type": "date"})
+        }
 
 
 class PostSearchForm(forms.Form):

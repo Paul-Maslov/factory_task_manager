@@ -1,21 +1,38 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-  <h1>
-    Username: "{{ employee.username }}" &emsp;&emsp;
+  <section class="p-3 mb-2 bg-secondary text-white">
+    <div class="container-fluid">
+      <div class="row">
 
-    <a
-      href="{% url 'task_manager:employee-delete' pk=employee.id %}"
-      class="btn btn-danger link-to-page">
-      Delete employee
-    </a>
-    <a
-      href="{% url 'task_manager:employee-update' pk=employee.id %}"
-      class="btn btn-secondary link-to-page">
-      Update employee info
-    </a>
+        <div class="col-sm-6">
+          {% if employee.photo %}
+            <span class="photo">
+              <img  style="float: left" src="{% static employee.get_meta_image %}" alt="Photo">
+            </span>
+            {% else %}
+              <h1>No photo!!!</h1>
+          {% endif %}
+         </div>
 
-  </h1>
+        <div class="col-sm-6">
+          <h1>Userrname: "{{ employee.username }}"</h1>
+          <a
+            href="{% url 'task_manager:employee-delete' pk=employee.id %}"
+            class="btn btn-danger link-to-page">
+            Delete employee
+          </a>
+          <a
+            href="{% url 'task_manager:employee-update' pk=employee.id %}"
+            class="btn btn-primary">
+            Update employee info
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <section class="p-3 mb-2 bg-success text-white">
     <div class="container-fluid">

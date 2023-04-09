@@ -52,7 +52,11 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(blank=True, max_length=50, null=True)),
+                ("name", models.CharField(
+                    blank=True,
+                    max_length=50,
+                    null=True
+                )),
             ],
             options={
                 "ordering": ["name"],
@@ -70,7 +74,11 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(blank=True, max_length=50, null=True)),
+                ("name", models.CharField(
+                    blank=True,
+                    max_length=50,
+                    null=True
+                )),
                 (
                     "employees",
                     models.ManyToManyField(
@@ -102,7 +110,11 @@ class Migration(migrations.Migration):
                 (
                     "priority",
                     models.CharField(
-                        choices=[("A", "Urgent"), ("B", "No_delay"), ("C", "Need")],
+                        choices=[
+                            ("A", "Urgent"),
+                            ("B", "No_delay"),
+                            ("C", "Need")
+                        ],
                         default="B",
                         max_length=1,
                     ),
@@ -137,7 +149,8 @@ class Migration(migrations.Migration):
             model_name="project",
             name="team",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="task_manager.team"
+                on_delete=django.db.models.deletion.CASCADE,
+                to="task_manager.team"
             ),
         ),
         migrations.AddField(

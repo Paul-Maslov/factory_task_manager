@@ -27,19 +27,66 @@
     </div>
   </div>
     <br>
-    <h1 class="text-center">
-      Factory Task Manager
-    </h1>
-    <p>Welcome to Task Manager of DLS factory!</p>
-    <h2>Dynamic content</h2>
-    <p>The Task Manager has the following record counts:</p>
 
-    <ul>
-      <li><strong>Projects:</strong> {{ num_projects }}</li>
-      <li><strong>Tasks:</strong> {{ num_tasks }}</li>
-      <li><strong>Posts:</strong> {{ num_posts }}</li>
-      <li><strong>Commentaries:</strong> {{ num_commentaries }}</li>
-    </ul>
+<header class="header-2">
+  <div class="page-header min-vh-75 relative" style="background-image: url('/static/images/bg2.jpg')">
+    <span class="mask bg-gradient-primary opacity-4"></span>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 text-center mx-auto">
+          <br><br>
+          <h1 class="text-white pt-3 mt-n5">Task Manager</h1>
+          <p class="lead text-white mt-3">
+            Welcome to Task Manager of DLS factory! <br/>
+            Join all employees of our factory.
+          </p>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
+  <section class="pt-3 pb-4" id="count-stats">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 mx-auto py-3">
+          <div class="row">
+            <div class="col-md-4 position-relative">
+              <div class="p-3 text-center">
+                <h1 class="text-gradient text-primary"><span>{{ num_projects }}</span>+</h1>
+                <h5 class="mt-3">Projects</h5>
+                <p class="text-sm font-weight-normal">Our projects are always created to solve a single main goal</p>
+              </div>
+              <hr class="vertical dark">
+            </div>
+            <div class="col-md-4 position-relative">
+              <div class="p-3 text-center">
+                <h1 class="text-gradient text-primary"> <span>{{ num_tasks }}</span>+</h1>
+                <h5 class="mt-3">Tasks</h5>
+                <p class="text-sm font-weight-normal">When formulating tasks, use SMART technology</p>
+              </div>
+              <hr class="vertical dark">
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 text-center">
+                <h1 class="text-gradient text-primary" ><span>{{ num_posts }}</span>+</h1>
+                <h5 class="mt-3">Posts</h5>
+                <p class="text-sm font-weight-normal">Posts contain information necessary to solve a problems</p>
+              </div>
+              <hr class="vertical dark">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script>

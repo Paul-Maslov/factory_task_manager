@@ -17,15 +17,15 @@
              Content: "{{ task_detail.description }}"
            </p>
           <h3>Priority:</h3>
-          <p>
+          <h4>
            {% if task_detail.priority == "A"  %}
-             <span class="btn btn-danger">{{ task_detail.get_priority_display }}</span>
+             <p class="btn btn-danger">{{ task_detail.get_priority_display }}</p>
              {% elif task.priority == "B" %}
-               <span class="btn btn-primary">{{ task_detail.get_priority_display }}</span>
+               <p class="btn btn-primary">{{ task_detail.get_priority_display }}</p>
              {% else %}
-               <span class="btn btn-light">{{ task_detail.get_priority_display }}</span>
+               <p class="btn btn-secondary">{{ task_detail.get_priority_display }}</p>
            {% endif %}
-          </p>
+          </h4>
         </div>
 
         <div class="col-sm-5">
@@ -41,6 +41,19 @@
             {% else %}
             <p class="text-center btn btn-danger">No completed</p>
           {% endif %}
+
+            {% if task_detail.fact_date %}
+              <h3><strong>Date of completion:</strong> &emsp; {{ task_detail.fact_date }}</h3>
+              {% else %}
+              <h4>
+                <form action="" method="post" style="height: 50px" class="form-check-inline" novalidate>
+                  {% csrf_token %}
+                  {{ done_form }}
+                  <input type="submit" value="✅ Ok" class="btn btn-secondary">
+                </form>
+              </h4>
+            {% endif %}
+
         </div>
 
       </div>
