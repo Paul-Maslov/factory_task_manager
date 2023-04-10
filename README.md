@@ -11,9 +11,19 @@ Description of DB structure of our project
 
 ![factory_task_manager_database_v01](https://user-images.githubusercontent.com/112548104/230823770-b40458d6-8aef-4b48-a367-c78881df3c4e.png)
 
+Features: 
+
+✨ Authentication functionality for Employee/User
+
+✨ Managing projects/tasks/posts/commentaries/users from website interface
+
+✨ Powerful admin panel for advanced management
+
+✨ The project can be expanded and supplemented with features at the request of the customer
 
 
-3.Page images:
+
+Page images:
 
 - home page
 ![image](https://user-images.githubusercontent.com/112548104/230824131-d0c1ce3d-260d-4fbc-815a-40c3de411f57.png)
@@ -44,18 +54,28 @@ Install modules via VENV (windows)
 $ virtualenv env
 $ .\env\Scripts\activate
 
-Set Up Database
+👉 Set Up Database
 
 $ python manage.py makemigrations
 $ python manage.py migrate
 
-Start the app
+👉 Start the app
 
 $ python manage.py runserver
 
 At this point, the app runs at http://127.0.0.1:8000/.
 
 ✨ Create Users
+
+✨ To see .env variables
+
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
+
+✨ Path to .env_sample
+
+env/.env_sample
 
 
 Links
