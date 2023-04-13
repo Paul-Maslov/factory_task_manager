@@ -75,6 +75,7 @@ class PrivatePostTests(TestCase):
             project=self.project
         )
         response = self.client.get(TASK_URL)
+
         self.assertEqual(len(response.context["task_list"]), PAGINATION)
 
     def test_task_detail_response_with_correct_template(self):

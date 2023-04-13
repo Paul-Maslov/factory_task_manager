@@ -78,6 +78,7 @@ class TaskFormsTests(TestCase):
                 "name": "Test update Task",
                 "description": "Try to update Task",
                 "is_completed": "False",
+                "priority": "B",
                 "project": self.project.id,
                 "assignees": self.user.id
 
