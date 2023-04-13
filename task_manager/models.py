@@ -139,7 +139,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(null=True, blank=True)
     created_time = models.DateTimeField(auto_now_add=True)
-    owner = models.OneToOneField(
+    owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True,
         related_name="post"
     )
