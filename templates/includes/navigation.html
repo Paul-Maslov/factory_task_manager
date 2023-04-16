@@ -1,0 +1,35 @@
+{% load static %}
+
+  <span class="logo">
+    <a href="https://dls.ua/">
+      <img src="{% static 'images/logodls.png'%}" alt="DLS logo">
+    </a>
+  </span>
+
+   {% if user.is_authenticated %}
+     <a
+       class="login btn btn-primary"
+       href="{% url 'task_manager:employee-detail' pk=user.id %}">
+       User: {{ user.username }}
+     </a>
+
+     <div class="nav">
+       <a class="nav__link" href="{% url 'task_manager:index' %}">Home</a>
+       <a class="nav__link" href="{% url 'task_manager:project-list' %}">Projects</a>
+       <a class="nav__link" href="{% url 'task_manager:task-list' %}">Tasks</a>
+       <a class="nav__link" href="{% url 'task_manager:post-list' %}">Posts</a>
+       <a class="nav__link" href="{% url 'task_manager:employee-list' %}">Employees</a>
+       <a class="nav__link" href="{% url 'task_manager:about' %}">About</a>
+     </div>
+     <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+
+
+   {% else %}
+
+      <a class="login btn btn-success" href="{% url 'login' %}">Login</a>
+      <div class="nav">
+        <a class="nav__link" href="{% url 'task_manager:index' %}">Home</a>
+        <a class="nav__link" href="{% url 'task_manager:about' %}">About</a>
+      </div>
+
+   {% endif %}

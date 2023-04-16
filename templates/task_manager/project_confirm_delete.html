@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Delete Projects</h1>
+
+  <p>Are you sure you want to delete Project <strong>"{{ project.name }}"</strong>?</p>
+  <p><i>All tasks with this Project will be also deleted!!!</i></p>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+
+    <input type="submit" class="btn btn-danger" value="Yes, delete" />
+    <input
+        formaction="/projects/"
+        formmethod="get"
+        type="submit"
+        value="Cancel"
+        class="btn btn-primary"
+    >
+
+  </form>
+
+{% endblock %}
