@@ -46,6 +46,7 @@ Developing
 👉 Step 1 - Download the code from the GH repository (using GIT)
 
 $ git clone git@github.com:Paul-Maslov/factory_task_manager.git
+
 $ cd factory_task_manager
 
 👉 Step 2 - Create virtual environment
@@ -63,6 +64,7 @@ $ venv/Scripts/activate
 Install modules via VENV (windows)
 
 $ virtualenv env
+
 $ .\env\Scripts\activate
 
 👉 Step 3 - Install info about project
@@ -72,6 +74,7 @@ $ pip install -r requirements.txt
 👉 Step 4 Set Up Database
 
 $ python manage.py makemigrations
+
 $ python manage.py migrate
 
 👉 Step 5 Start the project
