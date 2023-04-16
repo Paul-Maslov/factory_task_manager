@@ -46,9 +46,6 @@ Developing
 👉 Step 1 - Download the code from the GH repository (using GIT)
 
 $ git clone git@github.com:Paul-Maslov/factory_task_manager.git
-$ cd factory_task_manager
-
-$ git clone git@github.com:Paul-Maslov/factory_task_manager.git
 
 $ cd factory_task_manager
 
