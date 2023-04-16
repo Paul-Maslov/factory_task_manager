@@ -88,7 +88,9 @@ At this point, the app runs at http://127.0.0.1:8000/.
 ✨ To see .env variables
 
 $ pip install python-dotenv
+
 $ from dotenv import dotenv_values
+
 $ config = dotenv_values(".env")
 
 ✨ Description of environment variables as sample 
