@@ -9,7 +9,7 @@
         <div class="col-sm-6">
           {% if employee.photo %}
             <span class="photo">
-              <img  style="float: left" src="{% static employee.get_meta_image %}" alt="Photo">
+              <img  style="float: left" src="{{ employee.photo.url }}" alt="Photo">
             </span>
             {% else %}
               <h1>No photo!!!</h1>

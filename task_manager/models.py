@@ -16,7 +16,7 @@ class Position(models.Model):
 
 
 class Employee(AbstractUser, ModelMeta):
-    photo = models.ImageField(upload_to="static/foto_users/", blank=True)
+    photo = models.ImageField(upload_to="media/foto_users/", blank=True)
     position = models.ForeignKey(
         Position,
         null=True,
