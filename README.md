@@ -47,23 +47,42 @@
 
 👉 Step 1 - Download the code from the GH repository (using GIT)
 
-$ git clone git@github.com:Paul-Maslov/factory_task_manager.git
+```
+git clone git@github.com:Paul-Maslov/factory_task_manager.git
+```
 
 👉 Step 2 Set Up for Windows
 
-$ virtualenv env
-$ .\env\Scripts\activate
-$ pip3 install -r requirements.txt
-
+```
+virtualenv env
+.\env\Scripts\activate
+pip3 install -r requirements.txt
+```
 👉 Step 3 Set Up Database
 
-$ python manage.py makemigrations
-$ python manage.py migrate
+```
+python manage.py makemigrations
+python manage.py migrate
+```
 
 👉 Step 3 Start the app
 
-$ python manage.py runserver
+```
+python manage.py runserver
+```
 
 At this point, the app runs at http://127.0.0.1:8000/.
 
 ✨ Create Users
+
+Test user:
+
+username: krivor
+
+password: krivo12345
+
+✨ Check it out
+
+[GIT Hub Repository link] (https://github.com/Paul-Maslov/factory_task_manager)
+
+
